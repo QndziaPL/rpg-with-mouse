@@ -9,9 +9,10 @@ export interface PlayerInputCallbacks {
 
 export interface PlayerInputProps {
   onPlayerMouseClick: () => void;
+  onNextWeaponClick: () => void;
 }
 
-const LISTENED_KEYS = [
+const LISTENED_KEYS_FOR_HOLDING = [
   "ArrowUp",
   "ArrowDown",
   "ArrowLeft",
@@ -22,9 +23,11 @@ const LISTENED_KEYS = [
   "d",
 ];
 
+const LISTENED_KEYS_FOR_PRESSING = ["x"];
+
 export const usePlayerInput: (
   props: PlayerInputProps
-) => PlayerInputCallbacks = ({ onPlayerMouseClick }) => {
+) => PlayerInputCallbacks = ({ onPlayerMouseClick, onNextWeaponClick }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [mouseDown, setMouseDown] = useState(false);
   const [up, setUp] = useState(false);
@@ -51,7 +54,7 @@ export const usePlayerInput: (
   };
 
   const onKeyboardAction = (event: KeyboardEvent, type: "up" | "down") => {
-    if (!LISTENED_KEYS.includes(event.key)) return;
+    if (!LISTENED_KEYS_FOR_HOLDING.includes(event.key)) return;
     const valueToSet = type === "down";
     switch (event.key) {
       case "ArrowUp": {
@@ -86,8 +89,21 @@ export const usePlayerInput: (
         setRight(valueToSet);
         break;
       }
+
       default:
         break;
+    }
+  };
+
+  const onKeyPress = (event: KeyboardEvent) => {
+    if (!LISTENED_KEYS_FOR_PRESSING.includes(event.key)) return;
+    switch (event.key) {
+      case "x": {
+        onNextWeaponClick();
+        break;
+      }
+      default: {
+      }
     }
   };
 
@@ -100,6 +116,7 @@ export const usePlayerInput: (
       onKeyboardAction(event, "down")
     );
     window.addEventListener("keyup", (event) => onKeyboardAction(event, "up"));
+    window.addEventListener("keypress", onKeyPress);
     return () => {
       window.removeEventListener("click", onPlayerMouseClick);
       window.removeEventListener("mousedown", onMouseDown);

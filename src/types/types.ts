@@ -14,3 +14,11 @@ export interface PlayerMovementKeys {
   left: boolean;
   right: boolean;
 }
+
+export interface Projectile {
+  position: Position;
+  speed: number;
+  damage: number;
+  directionMoveFactor: Position;
+  size: number;
+}
