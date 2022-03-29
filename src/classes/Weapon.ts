@@ -13,7 +13,15 @@ export default abstract class Weapon {
   ) => {
     const topLeftX = projectilePosition.x - this.projectileSize.width / 2;
     const topLeftY = projectilePosition.y - this.projectileSize.height / 2;
+    const angle = Math.atan2(
+      projectilePosition.y - mousePosition.y,
+      projectilePosition.x - mousePosition.x
+    );
+    console.log(angle);
     ctx.save();
+    ctx.translate(projectilePosition.x, projectilePosition.y);
+    ctx.rotate(angle - 90);
+    ctx.translate(-projectilePosition.x, -projectilePosition.y);
     ctx.fillStyle = this.projectileColor;
     ctx.beginPath();
     ctx.lineWidth = 2;

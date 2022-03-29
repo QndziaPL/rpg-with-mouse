@@ -41,8 +41,6 @@ const Game = () => {
     gameState.shoot(mouseDown, player, mousePosition);
   };
 
-  console.log(gameState.playerProjectiles);
-
   return (
     <>
       <GameCanvas
