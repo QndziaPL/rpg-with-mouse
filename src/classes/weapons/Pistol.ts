@@ -4,5 +4,6 @@ export default class Pistol extends Weapon {
   fireRatePerSecond = 2;
   speed = 4;
   name = "Pistol";
-  projectileSize = 2;
+  projectileSize = { width: 4, height: 7 };
+  projectileColor = "#000000";
 }

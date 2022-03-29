@@ -4,5 +4,6 @@ export default class Ak47 extends Weapon {
   fireRatePerSecond = 7;
   speed = 6;
   name = "Ak47";
-  projectileSize = 4;
+  projectileSize = { width: 5, height: 10 };
+  projectileColor = "#b05c07";
 }

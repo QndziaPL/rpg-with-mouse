@@ -28,12 +28,22 @@ export default class GameState {
         damage: 1,
         speed: 20,
         position: player.position,
-        size: 10,
+        size: player.activeWeapon.projectileSize,
         directionMoveFactor: calculateDirectionMoveFactor(
           mousePosition,
           player.position,
           player.activeWeapon.speed
         ),
+        color: player.activeWeapon.projectileColor,
+        createShape: (
+          ctx: CanvasRenderingContext2D,
+          projectilePosition: Position
+        ) =>
+          player.activeWeapon.createProjectileShape(
+            ctx,
+            projectilePosition,
+            mousePosition
+          ),
       };
       this.playerProjectiles.push(projectile);
     }
@@ -41,23 +51,19 @@ export default class GameState {
 
   movePlayerProjectiles = (windowSize: Size) => {
     const newProjectiles: Projectile[] = [];
-    this.playerProjectiles.forEach(
-      ({ damage, speed, position, directionMoveFactor, size }) => {
-        if (isProjectileInGameArea(position, windowSize, size)) {
-          const newProjectile: Projectile = {
-            damage,
-            speed,
-            position: {
-              x: position.x + directionMoveFactor.x,
-              y: position.y + directionMoveFactor.y,
-            },
-            directionMoveFactor,
-            size,
-          };
-          newProjectiles.push(newProjectile);
-        }
+    this.playerProjectiles.forEach((projectile) => {
+      const { position, size, directionMoveFactor } = projectile;
+      if (isProjectileInGameArea(position, windowSize, size)) {
+        const newProjectile: Projectile = {
+          ...projectile,
+          position: {
+            x: position.x + directionMoveFactor.x,
+            y: position.y + directionMoveFactor.y,
+          },
+        };
+        newProjectiles.push(newProjectile);
       }
-    );
+    });
     this.playerProjectiles = newProjectiles;
   };
 }
@@ -65,13 +71,13 @@ export default class GameState {
 export const isProjectileInGameArea: (
   position: Position,
   windowSize: Size,
-  projectileSize: number
+  projectileSize: Size
 ) => boolean = (position, windowSize, projectileSize) => {
   return (
-    position.x - projectileSize / 2 > 0 &&
-    position.x + projectileSize / 2 < windowSize.width &&
-    position.y - projectileSize / 2 > 0 &&
-    position.y + projectileSize / 2 < windowSize.height
+    position.x - projectileSize.height / 2 > 0 &&
+    position.x + projectileSize.height / 2 < windowSize.width &&
+    position.y - projectileSize.height / 2 > 0 &&
+    position.y + projectileSize.height / 2 < windowSize.height
   );
 };
 

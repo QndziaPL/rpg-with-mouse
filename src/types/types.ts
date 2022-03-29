@@ -20,5 +20,10 @@ export interface Projectile {
   speed: number;
   damage: number;
   directionMoveFactor: Position;
-  size: number;
+  size: Size;
+  color: string;
+  createShape: (
+    ctx: CanvasRenderingContext2D,
+    projectilePosition: Position
+  ) => void;
 }

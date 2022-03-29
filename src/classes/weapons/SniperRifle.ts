@@ -2,7 +2,8 @@ import Weapon from "../Weapon";
 
 export default class SniperRifle extends Weapon {
   fireRatePerSecond = 0.6;
-  speed = 25;
+  speed = 20;
   name = "Sniper rifle";
-  projectileSize = 9;
+  projectileSize = { width: 15, height: 25 };
+  projectileColor = "#919191";
 }
