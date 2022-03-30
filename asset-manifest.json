@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/rpg-with-mouse/static/css/main.fa390bc1.css",
-    "main.js": "/rpg-with-mouse/static/js/main.ff308b49.js",
+    "main.css": "/rpg-with-mouse/static/css/main.b5463825.css",
+    "main.js": "/rpg-with-mouse/static/js/main.fcf2fc4e.js",
     "static/js/787.e6e8735c.chunk.js": "/rpg-with-mouse/static/js/787.e6e8735c.chunk.js",
     "index.html": "/rpg-with-mouse/index.html",
-    "main.fa390bc1.css.map": "/rpg-with-mouse/static/css/main.fa390bc1.css.map",
-    "main.ff308b49.js.map": "/rpg-with-mouse/static/js/main.ff308b49.js.map",
+    "main.b5463825.css.map": "/rpg-with-mouse/static/css/main.b5463825.css.map",
+    "main.fcf2fc4e.js.map": "/rpg-with-mouse/static/js/main.fcf2fc4e.js.map",
     "787.e6e8735c.chunk.js.map": "/rpg-with-mouse/static/js/787.e6e8735c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fa390bc1.css",
-    "static/js/main.ff308b49.js"
+    "static/css/main.b5463825.css",
+    "static/js/main.fcf2fc4e.js"
   ]
 }
