@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import GameCanvas from "./GameCanvas";
-import { usePlayerInput } from "../playerInputs/usePlayerInput";
-import GameState from "../classes/GameState/GameState";
-import Player from "../classes/Player/Player";
-import { draw } from "../draw/draw";
+import React, { useEffect, useState } from "react";
+import GameCanvas from "../GameCanvas/GameCanvas";
+import { usePlayerInput } from "../../playerInputs/usePlayerInput";
+import GameState from "../../classes/GameState/GameState";
+import Player from "../../classes/Player/Player";
+import { draw } from "../../draw/draw";
 
 const gameState = new GameState();
 const player = new Player();
@@ -15,6 +15,18 @@ const Game = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+
+  const [initialSetup, setInitialSetup] = useState(true);
+
+  useEffect(() => {
+    if (initialSetup) {
+      player.movePlayerTo({
+        x: windowSize.width / 2,
+        y: windowSize.height / 2,
+      });
+      setInitialSetup(false);
+    }
+  }, [windowSize]);
 
   const { width, height } = windowSize;
 
@@ -32,7 +44,7 @@ const Game = () => {
   });
 
   const update = () => {
-    player.movePlayer(playerMovementKeys);
+    player.movePlayer(playerMovementKeys, windowSize);
     shoot();
     gameState.movePlayerProjectiles(windowSize);
   };

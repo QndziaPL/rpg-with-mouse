@@ -1,4 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, VFC } from "react";
+import "./GameCanvas.css";
 
 interface Props {
   canvasContext: CanvasRenderingContext2D | null;
@@ -59,6 +60,7 @@ const GameCanvas: VFC<Props> = ({
 
   return (
     <canvas
+      id="gameCanvas"
       width={size.width}
       height={size.height}
       data-testid="gameCanvas"

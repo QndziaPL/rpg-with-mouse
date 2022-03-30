@@ -12,17 +12,27 @@ export default class Player {
   activeWeaponIndex = 1;
   activeWeapon: Weapon = this.weapons[this.activeWeaponIndex];
 
-  movePlayer = (movementKeys: PlayerMovementKeys) => {
-    if (movementKeys.up) {
+  movePlayerTo = (position: Position) => {
+    this.position = position;
+  };
+
+  movePlayer = (movementKeys: PlayerMovementKeys, windowSize: Size) => {
+    if (movementKeys.up && this.position.y - this.size.height / 2 > 0) {
       this.position.y -= this.speed;
     }
-    if (movementKeys.down) {
+    if (
+      movementKeys.down &&
+      this.position.y + this.size.height / 2 < windowSize.height
+    ) {
       this.position.y += this.speed;
     }
-    if (movementKeys.left) {
+    if (movementKeys.left && this.position.x - this.size.width / 2 > 0) {
       this.position.x -= this.speed;
     }
-    if (movementKeys.right) {
+    if (
+      movementKeys.right &&
+      this.position.x + this.size.width / 2 < windowSize.width
+    ) {
       this.position.x += this.speed;
     }
   };
