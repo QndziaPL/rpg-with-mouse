@@ -1,4 +1,4 @@
-import Player from "../classes/Player";
+import Player from "../classes/Player/Player";
 
 export const drawPlayer = (ctx: CanvasRenderingContext2D, player: Player) => {
   const { height, width } = player.size;

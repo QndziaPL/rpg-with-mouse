@@ -1,4 +1,4 @@
-import { Size } from "../types/types";
+import { Size } from "../../types/types";
 
 export default abstract class Weapon {
   abstract fireRatePerSecond: number;

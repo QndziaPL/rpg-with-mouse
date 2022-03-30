@@ -1,4 +1,4 @@
-import Weapon from "../Weapon";
+import Weapon from "./Weapon";
 
 export default class Pistol extends Weapon {
   fireRatePerSecond = 2;

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import GameCanvas from "./GameCanvas";
 import { usePlayerInput } from "../playerInputs/usePlayerInput";
-import GameState from "../classes/GameState";
-import Player from "../classes/Player";
+import GameState from "../classes/GameState/GameState";
+import Player from "../classes/Player/Player";
 import { draw } from "../draw/draw";
 
 const gameState = new GameState();

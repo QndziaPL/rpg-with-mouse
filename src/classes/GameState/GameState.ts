@@ -1,6 +1,6 @@
-import { Position, Projectile, Size } from "../types/types";
-import Player from "./Player";
-import { createProjectileShape } from "./weapons/helpers/createProjectileShape";
+import { Position, Projectile, Size } from "../../types/types";
+import Player from "../Player/Player";
+import { createProjectileShape } from "../weapons/helpers/createProjectileShape";
 
 export enum GameStatus {
   RUNNING = 1,

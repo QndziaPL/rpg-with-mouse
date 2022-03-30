@@ -30,7 +30,7 @@ export type FunctionWithSavedRotationOfProjectile = (
   mousePosition: Position,
   projectileSize: Size,
   projectileColor: string
-) => (ctx: CanvasRenderingContext2D, projectilePosition: Position) => void;
+) => RenderProjectileFromSavedRotation;
 
 export type RenderProjectileFromSavedRotation = (
   ctx: CanvasRenderingContext2D,

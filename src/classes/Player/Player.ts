@@ -1,8 +1,8 @@
-import { PlayerMovementKeys, Position, Size } from "../types/types";
-import Weapon from "./Weapon";
-import Pistol from "./weapons/Pistol";
-import Ak47 from "./weapons/Ak47";
-import SniperRifle from "./weapons/SniperRifle";
+import { PlayerMovementKeys, Position, Size } from "../../types/types";
+import Weapon from "../weapons/Weapon";
+import Pistol from "../weapons/Pistol";
+import Ak47 from "../weapons/Ak47";
+import SniperRifle from "../weapons/SniperRifle";
 
 export default class Player {
   position: Position = { x: 0, y: 0 };

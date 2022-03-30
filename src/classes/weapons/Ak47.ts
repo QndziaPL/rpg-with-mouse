@@ -1,4 +1,4 @@
-import Weapon from "../Weapon";
+import Weapon from "./Weapon";
 
 export default class Ak47 extends Weapon {
   fireRatePerSecond = 7;

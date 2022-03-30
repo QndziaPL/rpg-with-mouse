@@ -1,6 +1,6 @@
 import { Position } from "../types/types";
-import Player from "../classes/Player";
-import GameState from "../classes/GameState";
+import Player from "../classes/Player/Player";
+import GameState from "../classes/GameState/GameState";
 import { drawPlayer } from "./drawPlayer";
 import { drawPlayerProjectiles } from "./drawPlayerProjectiles";
 
