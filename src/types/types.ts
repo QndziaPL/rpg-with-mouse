@@ -22,8 +22,17 @@ export interface Projectile {
   directionMoveFactor: Position;
   size: Size;
   color: string;
-  createShape: (
-    ctx: CanvasRenderingContext2D,
-    projectilePosition: Position
-  ) => void;
+  createShape: RenderProjectileFromSavedRotation;
 }
+
+export type FunctionWithSavedRotationOfProjectile = (
+  projectilePosition: Position,
+  mousePosition: Position,
+  projectileSize: Size,
+  projectileColor: string
+) => (ctx: CanvasRenderingContext2D, projectilePosition: Position) => void;
+
+export type RenderProjectileFromSavedRotation = (
+  ctx: CanvasRenderingContext2D,
+  projectilePosition: Position
+) => void;

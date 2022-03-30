@@ -1,5 +1,6 @@
 import { Position, Projectile, Size } from "../types/types";
 import Player from "./Player";
+import { createProjectileShape } from "./weapons/helpers/createProjectileShape";
 
 export enum GameStatus {
   RUNNING = 1,
@@ -35,15 +36,12 @@ export default class GameState {
           player.activeWeapon.speed
         ),
         color: player.activeWeapon.projectileColor,
-        createShape: (
-          ctx: CanvasRenderingContext2D,
-          projectilePosition: Position
-        ) =>
-          player.activeWeapon.createProjectileShape(
-            ctx,
-            projectilePosition,
-            mousePosition
-          ),
+        createShape: createProjectileShape(
+          player.position,
+          mousePosition,
+          player.activeWeapon.projectileSize,
+          player.activeWeapon.projectileColor
+        ),
       };
       this.playerProjectiles.push(projectile);
     }
