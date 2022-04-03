@@ -11,6 +11,11 @@ export default class Player {
   weapons: Weapon[] = [new Ak47(), new Pistol(), new SniperRifle()];
   activeWeaponIndex = 1;
   activeWeapon: Weapon = this.weapons[this.activeWeaponIndex];
+  hp = 100
+
+  loseHp = (damage: number) => {
+    this.hp -= damage
+  }
 
   movePlayerTo = (position: Position) => {
     this.position = position;

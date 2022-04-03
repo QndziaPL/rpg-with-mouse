@@ -1,6 +1,10 @@
 import { Position, Projectile, Size } from "../../types/types";
 import Player from "../Player/Player";
 import { createProjectileShape } from "../weapons/helpers/createProjectileShape";
+import Enemy from "../enemies/Enemy";
+import { generateEnemiesInInterval } from "../../generators/generateEnemiesInInterval";
+import { filterEnemies } from "../../filters/filterEnemies";
+import { detectCollisions } from "./helpers/detectCollisions";
 
 export enum GameStatus {
   RUNNING = 1,
@@ -11,14 +15,31 @@ export enum GameStatus {
 export default class GameState {
   gameStatus: GameStatus = GameStatus.RUNNING;
   lastTimePlayerShot = 0;
+  level = 1;
 
   playerProjectiles: Projectile[] = [];
+  enemies: Enemy[] = [];
+  lastTimeEnemiesGenerated = 0;
 
   private notEnoughTimePassedSinceLastShot: (player: Player) => boolean = ({
     activeWeapon,
   }) => {
     const timeForOneShot = 1000 / activeWeapon.fireRatePerSecond;
     return Date.now() - this.lastTimePlayerShot < timeForOneShot;
+  };
+
+  updateGenerationTime = () => {
+    this.lastTimeEnemiesGenerated = Date.now();
+  };
+
+  generateEnemies = (windowSize: Size) => {
+    generateEnemiesInInterval(
+      this.enemies,
+      this.lastTimeEnemiesGenerated,
+      this.updateGenerationTime,
+      { active: true, interval: 5000 },
+      windowSize
+    );
   };
 
   shoot = (mouseDown: boolean, player: Player, mousePosition: Position) => {
@@ -63,6 +84,21 @@ export default class GameState {
       }
     });
     this.playerProjectiles = newProjectiles;
+  };
+
+  detectCollisions = () =>
+    detectCollisions(this.enemies, this.playerProjectiles);
+
+  moveEnemies = () => {
+    this.enemies = this.enemies.map((enemy) => {
+      const { position, speed } = enemy;
+      return { ...enemy, position: { x: position.x + speed, y: position.y } };
+    });
+  };
+
+  removeDeadEnemies = () => {
+    this.enemies = this.enemies.filter(filterEnemies);
+    console.log(this.enemies, "po filtrze");
   };
 }
 

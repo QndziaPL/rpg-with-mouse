@@ -4,6 +4,7 @@ import GameState from "../classes/GameState/GameState";
 import { drawPlayer } from "./drawPlayer";
 import { drawPlayerProjectiles } from "./drawPlayerProjectiles";
 import { drawInfo } from "./drawInfo";
+import { drawEnemies } from "./drawEnemies";
 
 export interface DrawProps {
   ctx: CanvasRenderingContext2D;
@@ -24,4 +25,5 @@ export const draw: (props: DrawProps) => void = ({
   drawInfo(ctx);
   drawPlayer(ctx, player);
   drawPlayerProjectiles(ctx, gameState.playerProjectiles);
+  drawEnemies(ctx, gameState.enemies);
 };
