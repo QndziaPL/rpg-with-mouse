@@ -1,21 +1,19 @@
 import { PlayerMovementKeys, Position, Size } from "../../types/types";
 import Weapon from "../weapons/Weapon";
-import Pistol from "../weapons/Pistol";
-import Ak47 from "../weapons/Ak47";
-import SniperRifle from "../weapons/SniperRifle";
 
 export default class Player {
   position: Position = { x: 0, y: 0 };
   size: Size = { height: 100, width: 100 };
   speed: number = 10;
-  weapons: Weapon[] = [new Ak47(), new Pistol(), new SniperRifle()];
+  weapons: Weapon[] = [];
+  // weapons: Weapon[] = [new Ak47(), new Pistol(), new SniperRifle()];
   activeWeaponIndex = 1;
   activeWeapon: Weapon = this.weapons[this.activeWeaponIndex];
-  hp = 100
+  hp = 100;
 
   loseHp = (damage: number) => {
-    this.hp -= damage
-  }
+    this.hp -= damage;
+  };
 
   movePlayerTo = (position: Position) => {
     this.position = position;

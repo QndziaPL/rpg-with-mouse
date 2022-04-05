@@ -1,16 +1,10 @@
-import { Position, Projectile, Size } from "../../types/types";
+import { GameStatus, Position, Projectile, Size } from "../../types/types";
 import Player from "../Player/Player";
 import { createProjectileShape } from "../weapons/helpers/createProjectileShape";
 import Enemy from "../enemies/Enemy";
 import { generateEnemiesInInterval } from "../../generators/generateEnemiesInInterval";
 import { filterEnemies } from "../../filters/filterEnemies";
 import { detectCollisions } from "./helpers/detectCollisions";
-
-export enum GameStatus {
-  RUNNING = 1,
-  PAUSED = 2,
-  OVER = 3,
-}
 
 export default class GameState {
   gameStatus: GameStatus = GameStatus.RUNNING;

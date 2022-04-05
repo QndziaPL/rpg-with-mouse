@@ -25,6 +25,8 @@ const GameCanvas: VFC<Props> = ({
   update,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationFrameId = useRef(0);
+  const lastFrameTimestamp = useRef(0);
 
   useEffect(() => {
     const updateSize = () => {
@@ -41,21 +43,18 @@ const GameCanvas: VFC<Props> = ({
   }, [canvasRef, setCanvasContext]);
 
   useEffect(() => {
-    let animationFrameId = 0;
-    let lastFrameTimestamp = 0;
     const render = (timestamp = 0) => {
-      if (timestamp > lastFrameTimestamp - 1000 / FRAMERATE) {
+      if (timestamp > lastFrameTimestamp.current - 1000 / FRAMERATE) {
         draw(canvasContext!);
-        animationFrameId = window.requestAnimationFrame(render);
-        lastFrameTimestamp = timestamp;
+        animationFrameId.current = requestAnimationFrame(render);
+        lastFrameTimestamp.current = timestamp;
         update();
       }
     };
-
     if (canvasContext) {
-      render();
+      animationFrameId.current = requestAnimationFrame(render);
     }
-    return () => window.cancelAnimationFrame(animationFrameId);
+    return () => cancelAnimationFrame(animationFrameId.current);
   }, [draw, canvasContext]);
 
   return (

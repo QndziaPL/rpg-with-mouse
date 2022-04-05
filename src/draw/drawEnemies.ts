@@ -1,4 +1,4 @@
-import Enemy from "../classes/enemies/Enemy";
+import { Enemy } from "../types/types";
 
 export const drawEnemies = (
   ctx: CanvasRenderingContext2D,

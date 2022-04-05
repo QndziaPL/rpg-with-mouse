@@ -1,9 +1,9 @@
-import Weapon from "./Weapon";
+import { Weapon } from "../../types/types";
 
-export default class Ak47 extends Weapon {
-  fireRatePerSecond = 7;
-  speed = 8;
-  name = "Ak47";
-  projectileSize = { width: 5, height: 10 };
-  projectileColor = "#b05c07";
-}
+export const Ak47: Weapon = {
+  name: "Ak47",
+  speed: 5,
+  projectileColor: "#88734b",
+  projectileSize: { width: 3, height: 12 },
+  fireRatePerSecond: 5,
+};

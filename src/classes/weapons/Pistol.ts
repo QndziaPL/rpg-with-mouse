@@ -1,9 +1,9 @@
-import Weapon from "./Weapon";
+import { Weapon } from "../../types/types";
 
-export default class Pistol extends Weapon {
-  fireRatePerSecond = 2;
-  speed = 5;
-  name = "Pistol";
-  projectileSize = { width: 4, height: 7 };
-  projectileColor = "#000000";
-}
+export const Pistol: Weapon = {
+  name: "Pistol",
+  speed: 1,
+  projectileColor: "#444444",
+  projectileSize: { width: 2, height: 4 },
+  fireRatePerSecond: 1.5,
+};
