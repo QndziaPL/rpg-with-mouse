@@ -45,7 +45,6 @@ const Game = () => {
 
   const update = () => {
     gameState.detectCollisions();
-    gameState.removeDeadEnemies();
     player.movePlayer(playerMovementKeys, windowSize);
     shoot();
     gameState.movePlayerProjectiles(windowSize);

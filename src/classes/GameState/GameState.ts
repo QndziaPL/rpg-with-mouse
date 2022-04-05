@@ -87,7 +87,11 @@ export default class GameState {
   };
 
   detectCollisions = () =>
-    detectCollisions(this.enemies, this.playerProjectiles);
+    detectCollisions(this.enemies, this.playerProjectiles, this.updateEnemies);
+
+  updateEnemies = (enemies: Enemy[]) => {
+    this.enemies = enemies;
+  };
 
   moveEnemies = () => {
     this.enemies = this.enemies.map((enemy) => {

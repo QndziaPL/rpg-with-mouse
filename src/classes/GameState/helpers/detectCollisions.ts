@@ -3,13 +3,16 @@ import Enemy from "../../enemies/Enemy";
 
 export const detectCollisions: (
   enemies: Enemy[],
-  playerProjectiles: Projectile[]
-) => void = (enemies, playerProjectiles) => {
+  playerProjectiles: Projectile[],
+  updateEnemies: (enemies: Enemy[]) => void
+) => void = (enemies, playerProjectiles, updateEnemies) => {
+  const newEnemies: Enemy[] = [];
   enemies.forEach((enemy) => {
+    const newEnemy = { ...enemy };
     const {
       position: { x, y },
       size: { width, height },
-    } = enemy;
+    } = newEnemy;
     const projectileHitEnemy: Projectile | undefined = playerProjectiles.find(
       (projectile) => {
         const {
@@ -33,7 +36,10 @@ export const detectCollisions: (
       }
     );
     if (projectileHitEnemy) {
-      enemy.loseHp(projectileHitEnemy.damage);
+      newEnemy.hp = newEnemy.hp - projectileHitEnemy.damage;
+      console.log(newEnemy);
     }
+    newEnemies.push(newEnemy);
   });
+  updateEnemies(newEnemies);
 };
