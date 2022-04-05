@@ -23,6 +23,7 @@ export interface Projectile {
   size: Size;
   color: string;
   createShape: RenderProjectileFromSavedRotation;
+  durability: number;
 }
 
 export type FunctionWithSavedRotationOfProjectile = (
@@ -61,6 +62,7 @@ export interface Player {
   speed: number;
   weapons: Weapon[];
   activeWeaponIndex: number;
+  exp: number;
 }
 
 export interface Enemy {
@@ -70,6 +72,7 @@ export interface Enemy {
   hp: number;
   damage: number;
   size: Size;
+  exp: number;
 }
 
 export interface Weapon {
@@ -78,4 +81,6 @@ export interface Weapon {
   name: string;
   projectileSize: Size;
   projectileColor: string;
+  damage: number;
+  projectileDurability: number;
 }

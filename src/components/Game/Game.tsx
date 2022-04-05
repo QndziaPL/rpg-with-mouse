@@ -38,10 +38,6 @@ const Game = () => {
     }
   }, [windowSize]);
 
-  const { width, height } = windowSize;
-
-  // console.log(gameState);
-
   const onPlayerMouseClick = () => {
     console.log("clicked");
   };
@@ -56,7 +52,7 @@ const Game = () => {
   });
 
   const update = () => {
-    // detectCollisions(); //todo
+    dispatchGameState({ type: GameStateActionType.DETECT_COLLISIONS });
     dispatchGameState({
       type: GameStateActionType.MOVE_PLAYER_USING_KEYBOARD,
       payload: {
@@ -67,8 +63,11 @@ const Game = () => {
     shoot();
     movePlayerProjectiles();
     generateEnemies();
-    // gameState.movePlayerProjectiles(windowSize);
-    // gameState.moveEnemies();
+    moveEnemies();
+  };
+
+  const moveEnemies = () => {
+    dispatchGameState({ type: GameStateActionType.MOVE_ENEMIES });
   };
 
   const movePlayerProjectiles = () => {

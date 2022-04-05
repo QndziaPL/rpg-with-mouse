@@ -6,4 +6,6 @@ export const RPG: Weapon = {
   projectileColor: "#6b6b6b",
   projectileSize: { width: 11, height: 16 },
   fireRatePerSecond: 0.5,
+  damage: 20,
+  projectileDurability: 5,
 };

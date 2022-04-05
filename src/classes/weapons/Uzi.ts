@@ -1,11 +1,11 @@
 import { Weapon } from "../../types/types";
 
-export const Ak47: Weapon = {
-  name: "Ak47",
-  speed: 5,
+export const Uzi: Weapon = {
+  name: "Uzi",
+  speed: 6,
   projectileColor: "#88734b",
   projectileSize: { width: 3, height: 12 },
-  fireRatePerSecond: 5,
+  fireRatePerSecond: 15,
   damage: 3,
-  projectileDurability: 2,
+  projectileDurability: 1,
 };

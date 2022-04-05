@@ -3,12 +3,11 @@ import { Ak47 } from "../../../classes/weapons/Ak47";
 import { Pistol } from "../../../classes/weapons/Pistol";
 import { notEnoughTimePassedSinceLastShot } from "../../../classes/GameState/helpers/notEnoughTimePassedSinceLastShot";
 import { createProjectileShape } from "../../../classes/weapons/helpers/createProjectileShape";
-import {
-  calculateDirectionMoveFactor,
-  isProjectileInGameArea,
-} from "../../../classes/GameState/GameState";
 import { RPG } from "../../../classes/weapons/RPG";
 import { generateRandomEnemyPosition } from "../../../generators/generateRandomEnemyPosition";
+import { Uzi } from "../../../classes/weapons/Uzi";
+import { isProjectileInGameArea } from "../../../classes/GameState/helpers/isProjectileInGameArea";
+import { calculateDirectionMoveFactor } from "../../../classes/GameState/helpers/calculateDirectionMoveFactor";
 
 export const INITIAL_GAME_STATE: GameState = {
   status: GameStatus.RUNNING,
@@ -16,10 +15,11 @@ export const INITIAL_GAME_STATE: GameState = {
     activeWeaponIndex: 0,
     hp: 10,
     level: 1,
-    speed: 1.5,
+    speed: 3,
     size: { width: 20, height: 20 },
     position: { x: 0, y: 0 },
-    weapons: [Ak47, Pistol, RPG],
+    weapons: [Ak47, Pistol, RPG, Uzi],
+    exp: 0,
   },
   enemies: [],
   lastTimePlayerShot: 0,
@@ -35,6 +35,8 @@ export enum GameStateActionType {
   PLAYER_SHOOT = 4,
   MOVE_PLAYER_PROJECTILES = 5,
   GENERATE_ENEMIES = 6,
+  MOVE_ENEMIES = 7,
+  DETECT_COLLISIONS = 8,
 }
 
 export interface GameStateAction {
@@ -70,7 +72,7 @@ export const gameStateReducer: (
       } = state.player;
       const { up, down, left, right } = payload.movementKeys;
       const newPosition = { x, y };
-
+      //TODO: fix quicker moving diagonally
       if (up && y - height / 2 > 0) {
         newPosition.y -= speed;
       }
@@ -104,8 +106,8 @@ export const gameStateReducer: (
         )
       ) {
         const projectile: Projectile = {
-          damage: 1,
-          speed: 20,
+          damage: activeWeapon.damage,
+          speed: activeWeapon.speed,
           position: player.position,
           size: activeWeapon.projectileSize,
           directionMoveFactor: calculateDirectionMoveFactor(
@@ -120,6 +122,7 @@ export const gameStateReducer: (
             activeWeapon.projectileSize,
             activeWeapon.projectileColor
           ),
+          durability: activeWeapon.projectileDurability,
         };
         const newProjectiles = [...state.playerProjectiles, projectile];
         return {
@@ -156,11 +159,12 @@ export const gameStateReducer: (
         for (let i = 0; i < numberOfEnemiesToGenerate; i++) {
           const enemy: Enemy = {
             name: "test enemy",
-            size: { width: 10, height: 10 },
+            size: { width: 30, height: 30 },
             hp: 1,
-            speed: 3,
+            speed: 1,
             damage: 1,
             position: generateRandomEnemyPosition(payload.windowSize),
+            exp: 5,
           };
           newEnemies.push(enemy);
         }
@@ -171,6 +175,67 @@ export const gameStateReducer: (
         };
       }
       return state;
+    }
+    case GameStateActionType.MOVE_ENEMIES: {
+      const newEnemies = state.enemies.map((enemy) => {
+        const { position, speed } = enemy;
+        return { ...enemy, position: { x: position.x + speed, y: position.y } };
+      });
+      return { ...state, enemies: newEnemies };
+    }
+    case GameStateActionType.DETECT_COLLISIONS: {
+      const { enemies, playerProjectiles } = state;
+      const newEnemies: Enemy[] = [];
+      const newProjectiles: Projectile[] = [...playerProjectiles];
+      let earnedExp = 0;
+      enemies.forEach((enemy) => {
+        const newEnemy = { ...enemy };
+        const {
+          position: { x, y },
+          size: { width, height },
+        } = newEnemy;
+        const projectileHitEnemyIndex: number = newProjectiles.findIndex(
+          (projectile, index) => {
+            const {
+              position: { x: projX, y: projY },
+              size: { width: projWidth, height: projHeight },
+            } = projectile;
+            const projectileHitboxFactor = projWidth / 2;
+            const enemyHitboxFactor = width / 2;
+            const horizontalCheck =
+              (projX - projectileHitboxFactor <= x + enemyHitboxFactor &&
+                projX - projectileHitboxFactor >= x - enemyHitboxFactor) ||
+              (projX + projectileHitboxFactor >= x - enemyHitboxFactor &&
+                projX + projectileHitboxFactor <= x + enemyHitboxFactor);
+            const verticalCheck =
+              (projY - projectileHitboxFactor <= y + enemyHitboxFactor &&
+                projY - projectileHitboxFactor >= y - enemyHitboxFactor) ||
+              (projY + projectileHitboxFactor >= y - enemyHitboxFactor &&
+                projY + projectileHitboxFactor <= y + enemyHitboxFactor);
+
+            return horizontalCheck && verticalCheck;
+          }
+        );
+        if (projectileHitEnemyIndex !== -1) {
+          newEnemy.hp =
+            newEnemy.hp - newProjectiles[projectileHitEnemyIndex].damage;
+          newProjectiles[projectileHitEnemyIndex].durability -= 1;
+          if (newProjectiles[projectileHitEnemyIndex].durability < 1) {
+            newProjectiles.splice(projectileHitEnemyIndex, 1);
+          }
+        }
+        if (newEnemy.hp < 1) {
+          earnedExp += newEnemy.exp;
+        } else {
+          newEnemies.push(newEnemy);
+        }
+      });
+      return {
+        ...state,
+        enemies: newEnemies,
+        player: { ...state.player, exp: state.player.exp + earnedExp },
+        playerProjectiles: newProjectiles,
+      };
     }
 
     default:
