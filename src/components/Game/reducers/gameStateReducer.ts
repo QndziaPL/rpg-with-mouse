@@ -8,6 +8,7 @@ import { generateRandomEnemyPosition } from "../../../generators/generateRandomE
 import { Uzi } from "../../../classes/weapons/Uzi";
 import { isProjectileInGameArea } from "../../../classes/GameState/helpers/isProjectileInGameArea";
 import { calculateDirectionMoveFactor } from "../../../classes/GameState/helpers/calculateDirectionMoveFactor";
+import { Minigun } from "../../../classes/weapons/Minigun";
 
 export const INITIAL_GAME_STATE: GameState = {
   status: GameStatus.RUNNING,
@@ -18,7 +19,7 @@ export const INITIAL_GAME_STATE: GameState = {
     speed: 3,
     size: { width: 20, height: 20 },
     position: { x: 0, y: 0 },
-    weapons: [Ak47, Pistol, RPG, Uzi],
+    weapons: [Ak47, Pistol, RPG, Uzi, Minigun],
     exp: 0,
   },
   enemies: [],
