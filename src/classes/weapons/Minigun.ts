@@ -5,7 +5,7 @@ export const Minigun: Weapon = {
   speed: 10,
   projectileColor: "#88734b",
   projectileSize: { width: 6, height: 12 },
-  fireRatePerSecond: 1000,
+  fireRatePerSecond: 60,
   damage: 3,
   projectileDurability: 2,
 };

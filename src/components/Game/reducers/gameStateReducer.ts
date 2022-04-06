@@ -1,7 +1,7 @@
 import { Enemy, GameState, GameStatus, Projectile } from "../../../types/types";
 import { Ak47 } from "../../../classes/weapons/Ak47";
 import { Pistol } from "../../../classes/weapons/Pistol";
-import { notEnoughTimePassedSinceLastShot } from "../../../classes/GameState/helpers/notEnoughTimePassedSinceLastShot";
+import { enoughTimePassedSinceLastShot } from "../../../classes/GameState/helpers/enoughTimePassedSinceLastShot";
 import { createProjectileShape } from "../../../classes/weapons/helpers/createProjectileShape";
 import { RPG } from "../../../classes/weapons/RPG";
 import { generateRandomEnemyPosition } from "../../../generators/generateRandomEnemyPosition";
@@ -101,7 +101,7 @@ export const gameStateReducer: (
       const activeWeapon = weapons[activeWeaponIndex];
       if (
         state.status === GameStatus.RUNNING &&
-        !notEnoughTimePassedSinceLastShot(
+        enoughTimePassedSinceLastShot(
           activeWeapon.fireRatePerSecond,
           state.lastTimePlayerShot
         )
