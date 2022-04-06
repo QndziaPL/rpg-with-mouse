@@ -23,6 +23,7 @@ export interface Projectile {
   size: Size;
   color: string;
   createShape: RenderProjectileFromSavedRotation;
+  durability: number;
 }
 
 export type FunctionWithSavedRotationOfProjectile = (
@@ -36,3 +37,50 @@ export type RenderProjectileFromSavedRotation = (
   ctx: CanvasRenderingContext2D,
   projectilePosition: Position
 ) => void;
+
+export enum GameStatus {
+  RUNNING = 1,
+  PAUSED = 2,
+  OVER = 3,
+}
+
+export interface GameState {
+  status: GameStatus;
+  lastTimePlayerShot: number;
+  player: Player;
+  playerProjectiles: Projectile[];
+  enemies: Enemy[];
+  lastTimeEnemiesGenerated: number;
+  enemiesGeneratingInterval: number;
+}
+
+export interface Player {
+  level: number;
+  position: Position;
+  hp: number;
+  size: Size;
+  speed: number;
+  weapons: Weapon[];
+  activeWeaponIndex: number;
+  exp: number;
+}
+
+export interface Enemy {
+  position: Position;
+  name: string;
+  speed: number;
+  hp: number;
+  damage: number;
+  size: Size;
+  exp: number;
+}
+
+export interface Weapon {
+  fireRatePerSecond: number;
+  speed: number;
+  name: string;
+  projectileSize: Size;
+  projectileColor: string;
+  damage: number;
+  projectileDurability: number;
+}

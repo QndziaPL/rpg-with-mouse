@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import GameCanvas from "../GameCanvas/GameCanvas";
 import { usePlayerInput } from "../../playerInputs/usePlayerInput";
-import GameState from "../../classes/GameState/GameState";
-import Player from "../../classes/Player/Player";
 import { draw } from "../../draw/draw";
 
-const gameState = new GameState();
-const player = new Player();
+import {
+  GameStateActionType,
+  gameStateReducer,
+  INITIAL_GAME_STATE,
+} from "./reducers/gameStateReducer";
+
 const Game = () => {
   const [canvasContext, setCanvasContext] =
     useState<CanvasRenderingContext2D | null>(null);
+
+  const [gameState, dispatchGameState] = useReducer(
+    gameStateReducer,
+    INITIAL_GAME_STATE
+  );
 
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
@@ -20,22 +27,23 @@ const Game = () => {
 
   useEffect(() => {
     if (initialSetup) {
-      player.movePlayerTo({
-        x: windowSize.width / 2,
-        y: windowSize.height / 2,
+      dispatchGameState({
+        type: GameStateActionType.MOVE_PLAYER_TO,
+        payload: {
+          x: windowSize.width / 2,
+          y: windowSize.height / 2,
+        },
       });
       setInitialSetup(false);
     }
   }, [windowSize]);
-
-  const { width, height } = windowSize;
 
   const onPlayerMouseClick = () => {
     console.log("clicked");
   };
 
   const onNextWeaponClick = () => {
-    player.pickNextWeapon();
+    dispatchGameState({ type: GameStateActionType.CHANGE_TO_NEXT_WEAPON });
   };
 
   const { mouseDown, playerMovementKeys, mousePosition } = usePlayerInput({
@@ -44,16 +52,45 @@ const Game = () => {
   });
 
   const update = () => {
-    gameState.detectCollisions();
-    player.movePlayer(playerMovementKeys, windowSize);
+    dispatchGameState({ type: GameStateActionType.DETECT_COLLISIONS });
+    dispatchGameState({
+      type: GameStateActionType.MOVE_PLAYER_USING_KEYBOARD,
+      payload: {
+        windowSize,
+        movementKeys: playerMovementKeys,
+      },
+    });
     shoot();
-    gameState.movePlayerProjectiles(windowSize);
-    gameState.generateEnemies(windowSize);
-    gameState.moveEnemies();
+    movePlayerProjectiles();
+    generateEnemies();
+    moveEnemies();
+  };
+
+  const moveEnemies = () => {
+    dispatchGameState({ type: GameStateActionType.MOVE_ENEMIES });
+  };
+
+  const movePlayerProjectiles = () => {
+    dispatchGameState({
+      type: GameStateActionType.MOVE_PLAYER_PROJECTILES,
+      payload: { windowSize },
+    });
   };
 
   const shoot = () => {
-    gameState.shoot(mouseDown, player, mousePosition);
+    if (mouseDown) {
+      dispatchGameState({
+        type: GameStateActionType.PLAYER_SHOOT,
+        payload: { mousePosition },
+      });
+    }
+  };
+
+  const generateEnemies = () => {
+    dispatchGameState({
+      type: GameStateActionType.GENERATE_ENEMIES,
+      payload: { windowSize },
+    });
   };
 
   return (
@@ -62,9 +99,7 @@ const Game = () => {
         update={update}
         size={windowSize}
         setSize={setWindowSize}
-        draw={(ctx) =>
-          draw({ ctx, player, gameState, mouseDown, mousePosition })
-        }
+        draw={(ctx) => draw({ ctx, gameState, mouseDown, mousePosition })}
         setCanvasContext={setCanvasContext}
         canvasContext={canvasContext}
       />
