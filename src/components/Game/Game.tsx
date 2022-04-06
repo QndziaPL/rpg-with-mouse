@@ -40,6 +40,7 @@ const Game = () => {
 
   const onPlayerMouseClick = () => {
     console.log("clicked");
+    console.log(gameState);
   };
 
   const onNextWeaponClick = () => {

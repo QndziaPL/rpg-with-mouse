@@ -1,3 +1,5 @@
+import { GameMap } from "../map/types";
+
 export interface Position {
   x: number;
   y: number;
@@ -52,6 +54,7 @@ export interface GameState {
   enemies: Enemy[];
   lastTimeEnemiesGenerated: number;
   enemiesGeneratingInterval: number;
+  map: GameMap;
 }
 
 export interface Player {

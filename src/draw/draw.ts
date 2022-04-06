@@ -3,6 +3,7 @@ import { drawPlayer } from "./drawPlayer";
 import { drawPlayerProjectiles } from "./drawPlayerProjectiles";
 import { drawInfo } from "./drawInfo";
 import { drawEnemies } from "./drawEnemies";
+import { drawMapObjects } from "./drawMapObjects";
 
 export interface DrawProps {
   ctx: CanvasRenderingContext2D;
@@ -22,4 +23,5 @@ export const draw: (props: DrawProps) => void = ({
   drawPlayer(ctx, gameState.player);
   drawPlayerProjectiles(ctx, gameState.playerProjectiles);
   drawEnemies(ctx, gameState.enemies);
+  drawMapObjects(ctx, gameState.map.squares); // probably need to optimize it, only render active screens
 };

@@ -13,8 +13,10 @@ import {
 } from "../helpers/calculateProjectileDirectionMoveFactor";
 import { Minigun } from "../../../weapons/Minigun";
 import { SniperRifle } from "../../../weapons/SniperRifle";
+import { createInitialMap } from "../../../map/createInitialMap";
 
 export const INITIAL_GAME_STATE: GameState = {
+  map: createInitialMap(),
   status: GameStatus.RUNNING,
   player: {
     activeWeaponIndex: 0,
