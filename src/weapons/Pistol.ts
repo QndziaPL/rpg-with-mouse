@@ -1,4 +1,4 @@
-import { Weapon } from "../../types/types";
+import { Weapon } from "../types/types";
 
 export const Pistol: Weapon = {
   name: "Pistol",

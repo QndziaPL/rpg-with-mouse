@@ -2,7 +2,7 @@ import {
   FunctionWithSavedRotationOfProjectile,
   Position,
   Size,
-} from "../../../types/types";
+} from "../../types/types";
 
 export const createProjectileShape: FunctionWithSavedRotationOfProjectile = (
   projectilePosition: Position, // when shoot these values are just center of player

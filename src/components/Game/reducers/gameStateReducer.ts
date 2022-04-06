@@ -1,14 +1,15 @@
 import { Enemy, GameState, GameStatus, Projectile } from "../../../types/types";
-import { Ak47 } from "../../../classes/weapons/Ak47";
-import { Pistol } from "../../../classes/weapons/Pistol";
-import { enoughTimePassedSinceLastShot } from "../../../classes/GameState/helpers/enoughTimePassedSinceLastShot";
-import { createProjectileShape } from "../../../classes/weapons/helpers/createProjectileShape";
-import { RPG } from "../../../classes/weapons/RPG";
+import { Ak47 } from "../../../weapons/Ak47";
+import { Pistol } from "../../../weapons/Pistol";
+import { enoughTimePassedSinceLastShot } from "../helpers/enoughTimePassedSinceLastShot";
+import { createProjectileShape } from "../../../weapons/helpers/createProjectileShape";
+import { RPG } from "../../../weapons/RPG";
 import { generateRandomEnemyPosition } from "../../../generators/generateRandomEnemyPosition";
-import { Uzi } from "../../../classes/weapons/Uzi";
-import { isProjectileInGameArea } from "../../../classes/GameState/helpers/isProjectileInGameArea";
-import { calculateDirectionMoveFactor } from "../../../classes/GameState/helpers/calculateDirectionMoveFactor";
-import { Minigun } from "../../../classes/weapons/Minigun";
+import { Uzi } from "../../../weapons/Uzi";
+import { isProjectileInGameArea } from "../helpers/isProjectileInGameArea";
+import { calculateDirectionMoveFactor } from "../helpers/calculateDirectionMoveFactor";
+import { Minigun } from "../../../weapons/Minigun";
+import { SniperRifle } from "../../../weapons/SniperRifle";
 
 export const INITIAL_GAME_STATE: GameState = {
   status: GameStatus.RUNNING,
@@ -19,14 +20,14 @@ export const INITIAL_GAME_STATE: GameState = {
     speed: 3,
     size: { width: 20, height: 20 },
     position: { x: 0, y: 0 },
-    weapons: [Ak47, Pistol, RPG, Uzi, Minigun],
+    weapons: [Ak47, Pistol, RPG, Uzi, Minigun, SniperRifle],
     exp: 0,
   },
   enemies: [],
   lastTimePlayerShot: 0,
   playerProjectiles: [],
   lastTimeEnemiesGenerated: 0,
-  enemiesGeneratingInterval: 5000,
+  enemiesGeneratingInterval: 2000,
 };
 
 export enum GameStateActionType {
@@ -155,7 +156,7 @@ export const gameStateReducer: (
       const { enemies, lastTimeEnemiesGenerated, enemiesGeneratingInterval } =
         state;
       if (Date.now() - lastTimeEnemiesGenerated >= enemiesGeneratingInterval) {
-        const numberOfEnemiesToGenerate = 20;
+        const numberOfEnemiesToGenerate = 50;
         const newEnemies = [...enemies];
         for (let i = 0; i < numberOfEnemiesToGenerate; i++) {
           const enemy: Enemy = {
