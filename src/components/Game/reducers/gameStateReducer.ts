@@ -7,7 +7,10 @@ import { RPG } from "../../../weapons/RPG";
 import { generateRandomEnemyPosition } from "../../../generators/generateRandomEnemyPosition";
 import { Uzi } from "../../../weapons/Uzi";
 import { isProjectileInGameArea } from "../helpers/isProjectileInGameArea";
-import { calculateDirectionMoveFactor } from "../helpers/calculateDirectionMoveFactor";
+import {
+  calculateEnemyDirectionMoveFactor,
+  calculateProjectileDirectionMoveFactor,
+} from "../helpers/calculateProjectileDirectionMoveFactor";
 import { Minigun } from "../../../weapons/Minigun";
 import { SniperRifle } from "../../../weapons/SniperRifle";
 
@@ -112,7 +115,7 @@ export const gameStateReducer: (
           speed: activeWeapon.speed,
           position: player.position,
           size: activeWeapon.projectileSize,
-          directionMoveFactor: calculateDirectionMoveFactor(
+          directionMoveFactor: calculateProjectileDirectionMoveFactor(
             payload.mousePosition,
             player.position,
             activeWeapon.speed
@@ -156,14 +159,14 @@ export const gameStateReducer: (
       const { enemies, lastTimeEnemiesGenerated, enemiesGeneratingInterval } =
         state;
       if (Date.now() - lastTimeEnemiesGenerated >= enemiesGeneratingInterval) {
-        const numberOfEnemiesToGenerate = 50;
+        const numberOfEnemiesToGenerate = 10;
         const newEnemies = [...enemies];
         for (let i = 0; i < numberOfEnemiesToGenerate; i++) {
           const enemy: Enemy = {
             name: "test enemy",
             size: { width: 30, height: 30 },
             hp: 1,
-            speed: 1,
+            speed: 2,
             damage: 1,
             position: generateRandomEnemyPosition(payload.windowSize),
             exp: 5,
@@ -181,7 +184,19 @@ export const gameStateReducer: (
     case GameStateActionType.MOVE_ENEMIES: {
       const newEnemies = state.enemies.map((enemy) => {
         const { position, speed } = enemy;
-        return { ...enemy, position: { x: position.x + speed, y: position.y } };
+        const moveFactor = calculateEnemyDirectionMoveFactor(
+          state.player.position,
+          position,
+          speed
+        );
+        return {
+          ...enemy,
+          position: {
+            x: position.x + moveFactor.x,
+            y: position.y + moveFactor.y,
+          },
+        };
+        // return { ...enemy, position: { x: position.x + speed, y: position.y } };
       });
       return { ...state, enemies: newEnemies };
     }

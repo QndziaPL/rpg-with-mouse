@@ -7,5 +7,5 @@ export const RPG: Weapon = {
   projectileSize: { width: 11, height: 16 },
   fireRatePerSecond: 0.5,
   damage: 20,
-  projectileDurability: 5,
+  projectileDurability: 10,
 };
