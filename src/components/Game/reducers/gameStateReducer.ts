@@ -196,7 +196,6 @@ export const gameStateReducer: (
             y: position.y + moveFactor.y,
           },
         };
-        // return { ...enemy, position: { x: position.x + speed, y: position.y } };
       });
       return { ...state, enemies: newEnemies };
     }
