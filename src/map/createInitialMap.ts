@@ -46,7 +46,7 @@ export const generateSquareMap: (squarePosition: Position) => MapSquare = (
 export const generateMapObjects: (squareSize: Size) => MapObject[] = (
   squareSize
 ) => {
-  const numberOfObstacles = randomNumberBetween(3, 2);
+  const numberOfObstacles = randomNumberBetween(10, 1);
   const obstacles: Obstacle[] = [];
   for (let i = 0; i < numberOfObstacles; i++) {
     const randomPosition: Position = {

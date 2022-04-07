@@ -6,9 +6,30 @@ export const renderTree = (
   position: Position,
   size: Size
 ) => {
-  ctx.rect(position.x, position.y, size.width, size.height);
-  ctx.fillStyle = "green";
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(
+    position.x + size.width / 3,
+    position.y,
+    size.width / 3,
+    size.height
+  );
+  ctx.fillStyle = "#7e4d2f";
   ctx.fill();
+  ctx.closePath();
+  ctx.beginPath();
+  ctx.arc(
+    position.x + size.width / 2,
+    position.y,
+    size.width / 2,
+    0,
+    2 * Math.PI
+  );
+  ctx.fillStyle = "#108300";
+  ctx.fill();
+  ctx.closePath();
+
+  ctx.restore();
 };
 
 export const Tree: (position: Position) => Obstacle = (position) => {

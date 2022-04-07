@@ -14,6 +14,7 @@ import {
 import { Minigun } from "../../../weapons/Minigun";
 import { SniperRifle } from "../../../weapons/SniperRifle";
 import { createInitialMap } from "../../../map/createInitialMap";
+import { randomNumberBetween } from "../../../helpers/helpers";
 
 export const INITIAL_GAME_STATE: GameState = {
   map: createInitialMap(),
@@ -32,7 +33,7 @@ export const INITIAL_GAME_STATE: GameState = {
   lastTimePlayerShot: 0,
   playerProjectiles: [],
   lastTimeEnemiesGenerated: 0,
-  enemiesGeneratingInterval: 2000,
+  enemiesGeneratingInterval: 5000,
 };
 
 export enum GameStateActionType {
@@ -161,14 +162,14 @@ export const gameStateReducer: (
       const { enemies, lastTimeEnemiesGenerated, enemiesGeneratingInterval } =
         state;
       if (Date.now() - lastTimeEnemiesGenerated >= enemiesGeneratingInterval) {
-        const numberOfEnemiesToGenerate = 10;
+        const numberOfEnemiesToGenerate = randomNumberBetween(10, 1);
         const newEnemies = [...enemies];
         for (let i = 0; i < numberOfEnemiesToGenerate; i++) {
           const enemy: Enemy = {
             name: "test enemy",
             size: { width: 30, height: 30 },
             hp: 1,
-            speed: 2,
+            speed: 1,
             damage: 1,
             position: generateRandomEnemyPosition(payload.windowSize),
             exp: 5,
