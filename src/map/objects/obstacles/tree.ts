@@ -1,11 +1,13 @@
 import { CreateObstacleFunction, MapObjectType } from "../../types";
 import { Position, Size } from "../../../types/types";
 import { randomNumberBetween } from "../../../helpers/helpers";
+import { AssetImageLoaded } from "../../../assets/useGameAssets";
 
 export const renderTree = (
   ctx: CanvasRenderingContext2D,
   position: Position,
-  size: Size
+  size: Size,
+  images: AssetImageLoaded[]
 ) => {
   ctx.save();
   ctx.beginPath();
@@ -41,7 +43,7 @@ export const Tree: CreateObstacleFunction = (position) => {
     destroyable: true,
     size,
     type: MapObjectType.OBSTACLE,
-    render: (ctx) => renderTree(ctx, position, size),
+    render: (ctx, images) => renderTree(ctx, position, size, images),
     hp: 5,
   };
 };

@@ -9,6 +9,8 @@ import {
   gameStateReducer,
   INITIAL_GAME_STATE,
 } from "./reducers/gameStateReducer";
+import { useGameAssets } from "../../assets/useGameAssets";
+import { IMAGES_TO_LOAD } from "../../consts/images";
 
 const Game = () => {
   const [canvasContext, setCanvasContext] =
@@ -23,6 +25,8 @@ const Game = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+
+  const images = useGameAssets(IMAGES_TO_LOAD);
 
   const [backgroundImagePattern, setBackgroundImagePattern] =
     useState<CanvasPattern>();
@@ -119,6 +123,7 @@ const Game = () => {
             mouseDown,
             mousePosition,
             backgroundPattern: backgroundImagePattern,
+            images,
           })
         }
         setCanvasContext={setCanvasContext}

@@ -1,4 +1,5 @@
 import { Position, Size } from "../types/types";
+import { AssetImageLoaded } from "../assets/useGameAssets";
 
 export enum MapObjectType {
   OBSTACLE = 1,
@@ -17,7 +18,7 @@ export interface MapObject {
   position: Position;
   size: Size;
   type: MapObjectType;
-  render: (ctx: CanvasRenderingContext2D) => void;
+  render: (ctx: CanvasRenderingContext2D, image: AssetImageLoaded[]) => void;
 }
 
 export interface Obstacle extends MapObject {

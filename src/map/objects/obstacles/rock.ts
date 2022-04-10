@@ -1,11 +1,13 @@
 import { CreateObstacleFunction, MapObjectType } from "../../types";
 import { Position, Size } from "../../../types/types";
 import { randomNumberBetween } from "../../../helpers/helpers";
+import { AssetImageLoaded } from "../../../assets/useGameAssets";
 
 const renderRock = (
   ctx: CanvasRenderingContext2D,
   position: Position,
-  size: Size
+  size: Size,
+  images: AssetImageLoaded[]
 ) => {
   const topLeft = {
     x: position.x - size.width / 2,
@@ -46,6 +48,6 @@ export const Rock: CreateObstacleFunction = (position) => {
     destroyable: false,
     size,
     hp: 1,
-    render: (ctx) => renderRock(ctx, position, size),
+    render: (ctx, images) => renderRock(ctx, position, size, images),
   };
 };
