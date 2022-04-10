@@ -1,15 +1,16 @@
 {
   "files": {
     "main.css": "/rpg-with-mouse/static/css/main.b5463825.css",
-    "main.js": "/rpg-with-mouse/static/js/main.7b3914cc.js",
+    "main.js": "/rpg-with-mouse/static/js/main.59417a40.js",
     "static/js/787.e6e8735c.chunk.js": "/rpg-with-mouse/static/js/787.e6e8735c.chunk.js",
+    "static/media/gunDalff.png": "/rpg-with-mouse/static/media/gunDalff.1bb1a622b19f3390ca43.png",
     "index.html": "/rpg-with-mouse/index.html",
     "main.b5463825.css.map": "/rpg-with-mouse/static/css/main.b5463825.css.map",
-    "main.7b3914cc.js.map": "/rpg-with-mouse/static/js/main.7b3914cc.js.map",
+    "main.59417a40.js.map": "/rpg-with-mouse/static/js/main.59417a40.js.map",
     "787.e6e8735c.chunk.js.map": "/rpg-with-mouse/static/js/787.e6e8735c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b5463825.css",
-    "static/js/main.7b3914cc.js"
+    "static/js/main.59417a40.js"
   ]
 }
