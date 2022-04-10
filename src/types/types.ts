@@ -68,6 +68,12 @@ export interface Player {
   exp: number;
 }
 
+export interface ObjectColors {
+  main: string,
+  secondary?: string,
+  additional?: string[],
+}
+
 export interface Enemy {
   position: Position;
   name: string;
@@ -76,6 +82,7 @@ export interface Enemy {
   damage: number;
   size: Size;
   exp: number;
+  color: ObjectColors;
 }
 
 export interface Weapon {
