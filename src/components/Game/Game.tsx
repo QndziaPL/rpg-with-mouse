@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import GameCanvas from "../GameCanvas/GameCanvas";
 import { usePlayerInput } from "../../playerInputs/usePlayerInput";
 import { draw } from "../../draw/draw";
+import grassTile from "../../assets/grassTile.png";
 
 import {
   GameStateActionType,
@@ -18,12 +19,22 @@ const Game = () => {
     INITIAL_GAME_STATE
   );
 
-  console.log(gameState, "tutaj");
-
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
+
+  const [backgroundImagePattern, setBackgroundImagePattern] =
+    useState<CanvasPattern>();
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = grassTile;
+    img.onload = () => {
+      const pattern = canvasContext?.createPattern(img, "repeat");
+      if (pattern) setBackgroundImagePattern(pattern);
+    };
+  }, [canvasContext]);
 
   const [initialSetup, setInitialSetup] = useState(true);
 
@@ -42,7 +53,6 @@ const Game = () => {
 
   const onPlayerMouseClick = () => {
     console.log("clicked");
-    console.log(gameState);
   };
 
   const onNextWeaponClick = () => {
@@ -102,7 +112,15 @@ const Game = () => {
         update={update}
         size={windowSize}
         setSize={setWindowSize}
-        draw={(ctx) => draw({ ctx, gameState, mouseDown, mousePosition })}
+        draw={(ctx) =>
+          draw({
+            ctx,
+            gameState,
+            mouseDown,
+            mousePosition,
+            backgroundPattern: backgroundImagePattern,
+          })
+        }
         setCanvasContext={setCanvasContext}
         canvasContext={canvasContext}
       />

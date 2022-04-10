@@ -1,5 +1,6 @@
 import { CreateObstacleFunction, MapObjectType } from "../../types";
 import { Position, Size } from "../../../types/types";
+import { randomNumberBetween } from "../../../helpers/helpers";
 
 export const renderTree = (
   ctx: CanvasRenderingContext2D,
@@ -33,7 +34,8 @@ export const renderTree = (
 };
 
 export const Tree: CreateObstacleFunction = (position) => {
-  const size = { width: 40, height: 40 };
+  const sizeFactor = randomNumberBetween(20, 4) / 10;
+  const size = { width: 40 * sizeFactor, height: 40 * sizeFactor };
   return {
     position,
     destroyable: true,
