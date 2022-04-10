@@ -18,8 +18,19 @@ export const generateEnemies: ActionForReducer = (state, payload) => {
         damage: 1,
         position: generateRandomEnemyPosition(payload.windowSize),
         exp: 5,
+        color: { main: "#ff0000" },
       };
-      newEnemies.push(enemy);
+      const speedyGonzalez: Enemy = {
+        name: "Speedy Gonzalez",
+        size: { width: 20, height: 50 },
+        hp: 1,
+        speed: 2,
+        damage: 1,
+        position: generateRandomEnemyPosition(payload.windowSize),
+        exp: 10,
+        color: { main: "#f6a818" },
+      };
+      newEnemies.push(enemy, speedyGonzalez);
     }
     return {
       ...state,
