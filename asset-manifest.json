@@ -1,17 +1,18 @@
 {
   "files": {
     "main.css": "/rpg-with-mouse/static/css/main.b5463825.css",
-    "main.js": "/rpg-with-mouse/static/js/main.8123f7cb.js",
+    "main.js": "/rpg-with-mouse/static/js/main.dd9eb7a2.js",
     "static/js/787.e6e8735c.chunk.js": "/rpg-with-mouse/static/js/787.e6e8735c.chunk.js",
+    "static/media/tree.png": "/rpg-with-mouse/static/media/tree.1a219c682e9e741fd116.png",
     "static/media/rock.png": "/rpg-with-mouse/static/media/rock.292c9b4adb81e3f2fb68.png",
     "static/media/gunDalff.png": "/rpg-with-mouse/static/media/gunDalff.1bb1a622b19f3390ca43.png",
     "index.html": "/rpg-with-mouse/index.html",
     "main.b5463825.css.map": "/rpg-with-mouse/static/css/main.b5463825.css.map",
-    "main.8123f7cb.js.map": "/rpg-with-mouse/static/js/main.8123f7cb.js.map",
+    "main.dd9eb7a2.js.map": "/rpg-with-mouse/static/js/main.dd9eb7a2.js.map",
     "787.e6e8735c.chunk.js.map": "/rpg-with-mouse/static/js/787.e6e8735c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b5463825.css",
-    "static/js/main.8123f7cb.js"
+    "static/js/main.dd9eb7a2.js"
   ]
 }
