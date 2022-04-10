@@ -1,5 +1,6 @@
 import { CreateObstacleFunction, MapObjectType } from "../../types";
 import { Position, Size } from "../../../types/types";
+import { randomNumberBetween } from "../../../helpers/helpers";
 
 const renderRock = (
   ctx: CanvasRenderingContext2D,
@@ -36,7 +37,9 @@ const renderRock = (
 };
 
 export const Rock: CreateObstacleFunction = (position) => {
-  const size = { width: 50, height: 40 };
+  const sizeFactor = randomNumberBetween(20, 3) / 10;
+  const size = { width: 50 * sizeFactor, height: 40 * sizeFactor };
+
   return {
     type: MapObjectType.OBSTACLE,
     position,
