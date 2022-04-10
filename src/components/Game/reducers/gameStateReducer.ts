@@ -23,7 +23,7 @@ export const INITIAL_GAME_STATE: GameState = {
     hp: 10,
     level: 1,
     speed: 3,
-    size: { width: 20, height: 20 },
+    size: { width: 20, height: 31 }, // for now set with size of gandalf image
     position: { x: 0, y: 0 },
     weapons: [Ak47, Pistol, RPG, Uzi, Minigun, SniperRifle],
     exp: 0,

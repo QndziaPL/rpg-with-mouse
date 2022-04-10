@@ -26,7 +26,7 @@ const Game = () => {
 
   const [backgroundImagePattern, setBackgroundImagePattern] =
     useState<CanvasPattern>();
-  //const [playerModel, setPlayerModel] = useState()
+
   useEffect(() => {
     const img = new Image();
     img.src = grassTile;
