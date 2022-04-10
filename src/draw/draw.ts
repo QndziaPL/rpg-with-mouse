@@ -4,8 +4,8 @@ import { drawPlayerProjectiles } from "./drawPlayerProjectiles";
 import { drawInfo } from "./drawInfo";
 import { drawEnemies } from "./drawEnemies";
 import { drawMapObjects } from "./drawMapObjects";
-import { drawFloor } from "./drawFloor";
 import { AssetImageLoaded } from "../assets/useGameAssets";
+import { drawFloor } from "./drawFloor";
 
 export interface DrawProps {
   ctx: CanvasRenderingContext2D;

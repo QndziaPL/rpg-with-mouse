@@ -1,7 +1,10 @@
 import { CreateObstacleFunction, MapObjectType } from "../../types";
 import { Position, Size } from "../../../types/types";
 import { randomNumberBetween } from "../../../helpers/helpers";
-import { AssetImageLoaded } from "../../../assets/useGameAssets";
+import {
+  AssetImageLoaded,
+  AssetImageName,
+} from "../../../assets/useGameAssets";
 
 export const renderTree = (
   ctx: CanvasRenderingContext2D,
@@ -9,35 +12,24 @@ export const renderTree = (
   size: Size,
   images: AssetImageLoaded[]
 ) => {
+  const img = images.find(
+    ({ name }) => name === AssetImageName.OBSTACLE_TREE
+  )?.img;
+  if (!img) return;
   ctx.save();
-  ctx.beginPath();
-  ctx.rect(
-    position.x + size.width / 3,
-    position.y,
-    size.width / 3,
+  ctx.drawImage(
+    img,
+    position.x - size.width / 2,
+    position.y - size.height / 2,
+    size.width,
     size.height
   );
-  ctx.fillStyle = "#7e4d2f";
-  ctx.fill();
-  ctx.closePath();
-  ctx.beginPath();
-  ctx.arc(
-    position.x + size.width / 2,
-    position.y,
-    size.width / 2,
-    0,
-    2 * Math.PI
-  );
-  ctx.fillStyle = "#108300";
-  ctx.fill();
-  ctx.closePath();
-
   ctx.restore();
 };
 
 export const Tree: CreateObstacleFunction = (position) => {
-  const sizeFactor = randomNumberBetween(20, 4) / 10;
-  const size = { width: 40 * sizeFactor, height: 40 * sizeFactor };
+  const sizeFactor = randomNumberBetween(15, 8) / 10;
+  const size = { width: 150 * sizeFactor, height: 187 * sizeFactor }; // based on bmp
   return {
     position,
     destroyable: true,

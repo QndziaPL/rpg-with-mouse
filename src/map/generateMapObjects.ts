@@ -6,7 +6,7 @@ import { MAP_SIDE, OBSTACLES } from "../consts/map";
 export const generateMapObjects: (squarePosition: Position) => MapObject[] = (
   squarePosition: Position
 ) => {
-  const numberOfObstacles = randomNumberBetween(100, 50);
+  const numberOfObstacles = randomNumberBetween(300, 150);
   const obstacles: Obstacle[] = [];
   for (let i = 0; i < numberOfObstacles; i++) {
     const obstacle = OBSTACLES[randomNumberBetween(OBSTACLES.length, 0)];

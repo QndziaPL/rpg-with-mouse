@@ -1,7 +1,10 @@
 import { CreateObstacleFunction, MapObjectType } from "../../types";
 import { Position, Size } from "../../../types/types";
 import { randomNumberBetween } from "../../../helpers/helpers";
-import { AssetImageLoaded } from "../../../assets/useGameAssets";
+import {
+  AssetImageLoaded,
+  AssetImageName,
+} from "../../../assets/useGameAssets";
 
 const renderRock = (
   ctx: CanvasRenderingContext2D,
@@ -9,30 +12,19 @@ const renderRock = (
   size: Size,
   images: AssetImageLoaded[]
 ) => {
-  const topLeft = {
-    x: position.x - size.width / 2,
-    y: position.y - size.height / 2,
-  };
-  const gradient = ctx.createLinearGradient(
-    topLeft.x + size.height / 2,
-    topLeft.y + size.height,
-    topLeft.x + size.width / 2,
-    topLeft.y
-  );
-  gradient.addColorStop(0, "#464040");
-  gradient.addColorStop(0.3, "#9b9393");
-  gradient.addColorStop(1, "#ababab");
+  const img = images.find(
+    ({ name }) => name === AssetImageName.OBSTACLE_ROCK
+  )?.img;
+  if (!img) return;
 
   ctx.save();
-  ctx.beginPath();
-  ctx.fillStyle = gradient;
-  ctx.moveTo(topLeft.x + size.width / 5, topLeft.y + size.height);
-  ctx.lineTo(topLeft.x + (size.width * 4) / 5, topLeft.y + size.height);
-  ctx.lineTo(topLeft.x + size.width, topLeft.y + size.height / 2);
-  ctx.lineTo(topLeft.x + (size.width * 3) / 5, topLeft.y);
-  ctx.lineTo(topLeft.x, topLeft.y + (size.height * 1.5) / 4);
-  ctx.closePath();
-  ctx.fill();
+  ctx.drawImage(
+    img,
+    position.x - size.width / 2,
+    position.y - size.height / 2,
+    size.width,
+    size.height
+  );
   ctx.strokeStyle = "black";
 
   ctx.restore();
@@ -40,7 +32,7 @@ const renderRock = (
 
 export const Rock: CreateObstacleFunction = (position) => {
   const sizeFactor = randomNumberBetween(20, 3) / 10;
-  const size = { width: 50 * sizeFactor, height: 40 * sizeFactor };
+  const size = { width: 100 * sizeFactor, height: 77 * sizeFactor }; // based on bmp
 
   return {
     type: MapObjectType.OBSTACLE,
