@@ -18,6 +18,8 @@ const Game = () => {
     INITIAL_GAME_STATE
   );
 
+  console.log(gameState, "tutaj");
+
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,

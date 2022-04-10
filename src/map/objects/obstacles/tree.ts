@@ -1,4 +1,4 @@
-import { MapObjectType, Obstacle } from "../../types";
+import { CreateObstacleFunction, MapObjectType } from "../../types";
 import { Position, Size } from "../../../types/types";
 
 export const renderTree = (
@@ -32,13 +32,14 @@ export const renderTree = (
   ctx.restore();
 };
 
-export const Tree: (position: Position) => Obstacle = (position) => {
+export const Tree: CreateObstacleFunction = (position) => {
   const size = { width: 40, height: 40 };
   return {
     position,
-    destroyable: false,
+    destroyable: true,
     size,
     type: MapObjectType.OBSTACLE,
     render: (ctx) => renderTree(ctx, position, size),
+    hp: 5,
   };
 };

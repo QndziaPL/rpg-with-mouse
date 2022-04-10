@@ -3,6 +3,5 @@ export const enoughTimePassedSinceLastShot: (
   lastTimePlayerShot: number
 ) => boolean = (fireRatePerSecond, lastTimePlayerShot) => {
   const timeForOneShot = 1000 / fireRatePerSecond;
-  console.log(timeForOneShot, Date.now(), lastTimePlayerShot);
   return timeForOneShot < Date.now() - lastTimePlayerShot;
 };

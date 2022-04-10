@@ -1,3 +1,5 @@
-import { Size } from "../types/types";
+import { Tree } from "../map/objects/obstacles/tree";
+import { Rock } from "../map/objects/obstacles/rock";
 
-export const MAP_SIZE: Size = { width: 2000, height: 2000 };
+export const MAP_SIDE = 3000;
+export const OBSTACLES = [Tree, Rock];

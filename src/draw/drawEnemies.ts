@@ -4,6 +4,7 @@ export const drawEnemies = (
   ctx: CanvasRenderingContext2D,
   enemies: Enemy[]
 ) => {
+  ctx.save();
   enemies.forEach(({ position: { x, y }, size }) => {
     ctx.beginPath();
     ctx.fillStyle = "#ff0000";
@@ -12,4 +13,5 @@ export const drawEnemies = (
     ctx.fill();
     ctx.closePath();
   });
+  ctx.restore();
 };

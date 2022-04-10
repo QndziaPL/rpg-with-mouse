@@ -1,8 +1,5 @@
-import { GameMap, MapObject, MapSquare, Obstacle } from "./types";
-import { Position, Size } from "../types/types";
-import { MAP_SIZE } from "../consts/map";
-import { randomNumberBetween } from "../helpers/helpers";
-import { Tree } from "./objects/obstacles/tree";
+import { GameMap } from "./types";
+import { generateSquareMap } from "./generateSquareMap";
 
 /**
  * Single "MapSquare" refers to one square piece of map
@@ -18,42 +15,21 @@ import { Tree } from "./objects/obstacles/tree";
 
 export const createInitialMap: () => GameMap = () => {
   const squares = [
-    { x: -1, y: -1 },
-    { x: 0, y: -1 },
-    { x: 1, y: -1 },
-    { x: -1, y: 0 },
-    { x: 0, y: 0 },
-    { x: 1, y: 0 },
-    { x: -1, y: 1 },
-    { x: 0, y: 1 },
-    { x: 1, y: 1 },
-  ].map((position) => generateSquareMap(position));
-
-  console.log(squares);
-  return { squares };
-};
-
-export const generateSquareMap: (squarePosition: Position) => MapSquare = (
-  squarePosition
-) => {
+    { position: { x: -1, y: -1 } },
+    { position: { x: 0, y: -1 } },
+    { position: { x: 1, y: -1 } },
+    { position: { x: -1, y: 0 } },
+    { position: { x: 0, y: 0 } },
+    { position: { x: 1, y: 0 } },
+    { position: { x: -1, y: 1 } },
+    { position: { x: 0, y: 1 } },
+    { position: { x: 1, y: 1 } },
+  ].map((square) => generateSquareMap(square.position));
   return {
-    size: MAP_SIZE,
-    objects: generateMapObjects(MAP_SIZE),
-    position: squarePosition,
+    squares,
+    actualViewRange: {
+      topLeft: { x: 0, y: 0 },
+      bottomRight: { x: window.innerWidth, y: window.innerHeight },
+    },
   };
-};
-
-export const generateMapObjects: (squareSize: Size) => MapObject[] = (
-  squareSize
-) => {
-  const numberOfObstacles = randomNumberBetween(10, 1);
-  const obstacles: Obstacle[] = [];
-  for (let i = 0; i < numberOfObstacles; i++) {
-    const randomPosition: Position = {
-      x: randomNumberBetween(squareSize.width),
-      y: randomNumberBetween(squareSize.height),
-    };
-    obstacles.push(Tree(randomPosition));
-  }
-  return obstacles;
 };

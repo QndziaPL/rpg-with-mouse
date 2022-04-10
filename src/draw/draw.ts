@@ -19,7 +19,7 @@ export const draw: (props: DrawProps) => void = ({
   mouseDown,
 }) => {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clears canvas before new frame render
-  drawInfo(ctx);
+  drawInfo(ctx, gameState);
   drawPlayer(ctx, gameState.player);
   drawPlayerProjectiles(ctx, gameState.playerProjectiles);
   drawEnemies(ctx, gameState.enemies);

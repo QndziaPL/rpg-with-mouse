@@ -162,7 +162,7 @@ export const gameStateReducer: (
       const { enemies, lastTimeEnemiesGenerated, enemiesGeneratingInterval } =
         state;
       if (Date.now() - lastTimeEnemiesGenerated >= enemiesGeneratingInterval) {
-        const numberOfEnemiesToGenerate = randomNumberBetween(10, 1);
+        const numberOfEnemiesToGenerate = randomNumberBetween(7, 2);
         const newEnemies = [...enemies];
         for (let i = 0; i < numberOfEnemiesToGenerate; i++) {
           const enemy: Enemy = {
@@ -236,6 +236,7 @@ export const gameStateReducer: (
           }
         );
         if (projectileHitEnemyIndex !== -1) {
+          // projectile hits enemy
           newEnemy.hp =
             newEnemy.hp - newProjectiles[projectileHitEnemyIndex].damage;
           newProjectiles[projectileHitEnemyIndex].durability -= 1;

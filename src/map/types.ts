@@ -7,6 +7,10 @@ export enum MapObjectType {
 
 export interface GameMap {
   squares: MapSquare[];
+  actualViewRange: {
+    topLeft: Position;
+    bottomRight: Position;
+  };
 }
 
 export interface MapObject {
@@ -19,10 +23,10 @@ export interface MapObject {
 export interface Obstacle extends MapObject {
   destroyable: boolean;
   type: MapObjectType.OBSTACLE;
+  hp: number;
 }
 
 export interface MapSquare {
-  size: Size;
   objects: MapObject[];
   position: Position;
   /** initial positions of 9 MapSquares
@@ -31,3 +35,5 @@ export interface MapSquare {
    [-1,1 ][0,1 ][1,1 ]
    */
 }
+
+export type CreateObstacleFunction = (position: Position) => Obstacle;
