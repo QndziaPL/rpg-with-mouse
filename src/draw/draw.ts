@@ -27,7 +27,7 @@ export const draw: (props: DrawProps) => void = ({
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clears canvas before new frame render
   drawFloor(ctx, gameState.map, backgroundPattern);
   drawPlayer(ctx, gameState.player, images);
-  drawPlayerProjectiles(ctx, gameState.playerProjectiles);
+  drawPlayerProjectiles(ctx, gameState.playerProjectiles, images);
   drawEnemies(ctx, gameState.enemies);
   drawMapObjects(ctx, gameState.map.squares, images); // probably need to optimize it, only render active screens
   drawInfo(ctx, gameState);

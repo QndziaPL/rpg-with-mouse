@@ -30,7 +30,9 @@ export const playerShoot: ActionForReducer = (state, payload) => {
         player.position,
         payload.mousePosition,
         activeWeapon.projectileSize,
-        activeWeapon.projectileColor
+        activeWeapon.projectileColor,
+        activeWeapon.projectileImageName,
+        activeWeapon.projectileImageScalingRatio
       ),
       durability: activeWeapon.projectileDurability,
     };

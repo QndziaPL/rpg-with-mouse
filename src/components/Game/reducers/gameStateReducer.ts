@@ -14,6 +14,7 @@ import { moveEnemies } from "./actions/moveEnemies";
 import { detectCollisions } from "./actions/detectCollisions";
 import { changeToNextWeapon } from "./actions/changeToNextWeapon";
 import { movePlayerTo } from "./actions/movePlayerTo";
+import { Sausage } from "../../../weapons/Sausage";
 
 export const INITIAL_GAME_STATE: GameState = {
   map: createInitialMap(),
@@ -25,7 +26,7 @@ export const INITIAL_GAME_STATE: GameState = {
     speed: 3,
     size: { width: 20, height: 31 }, // for now set with size of gandalf image
     position: { x: 0, y: 0 },
-    weapons: [Ak47, Pistol, RPG, Uzi, Minigun, SniperRifle],
+    weapons: [Ak47, Pistol, RPG, Uzi, Minigun, SniperRifle, Sausage],
     exp: 0,
   },
   enemies: [],

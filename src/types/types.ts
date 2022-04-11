@@ -1,4 +1,5 @@
 import { GameMap } from "../map/types";
+import { AssetImageLoaded, AssetImageName } from "../assets/useGameAssets";
 
 export interface Position {
   x: number;
@@ -32,12 +33,15 @@ export type FunctionWithSavedRotationOfProjectile = (
   projectilePosition: Position,
   mousePosition: Position,
   projectileSize: Size,
-  projectileColor: string
+  projectileColor?: string,
+  projectileImageName?: AssetImageName,
+  projectileImageScalingRatio?: number
 ) => RenderProjectileFromSavedRotation;
 
 export type RenderProjectileFromSavedRotation = (
   ctx: CanvasRenderingContext2D,
-  projectilePosition: Position
+  projectilePosition: Position,
+  images: AssetImageLoaded[]
 ) => void;
 
 export enum GameStatus {
@@ -69,9 +73,9 @@ export interface Player {
 }
 
 export interface ObjectColors {
-  main: string,
-  secondary?: string,
-  additional?: string[],
+  main: string;
+  secondary?: string;
+  additional?: string[];
 }
 
 export interface Enemy {
@@ -93,4 +97,6 @@ export interface Weapon {
   projectileColor: string;
   damage: number;
   projectileDurability: number;
+  projectileImageName?: AssetImageName;
+  projectileImageScalingRatio?: number;
 }

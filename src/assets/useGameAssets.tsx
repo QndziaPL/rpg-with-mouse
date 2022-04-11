@@ -4,6 +4,7 @@ export enum AssetImageName {
   PLAYER_SKIN_GANDALF = 1,
   OBSTACLE_ROCK = 2,
   OBSTACLE_TREE = 3,
+  PROJECTILE_SAUSAGES = 4,
 }
 
 export interface AssetImageToLoad {
