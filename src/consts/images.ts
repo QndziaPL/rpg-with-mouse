@@ -1,8 +1,8 @@
 import { AssetImageName, AssetImageToLoad } from "../assets/useGameAssets";
-import gandalf from "../assets/gunDalff.png";
-import rock from "../assets/rock.png";
-import tree from "../assets/tree.png";
-import sausages from "../assets/sausages.png";
+import gandalf from "../assets/playerSkins/gunDalff.png";
+import rock from "../assets/obstacles/rock.png";
+import tree from "../assets/obstacles/tree.png";
+import sausages from "../assets/projectiles/sausages.png";
 
 export const IMAGES_TO_LOAD: AssetImageToLoad[] = [
   { name: AssetImageName.PLAYER_SKIN_GANDALF, url: gandalf },

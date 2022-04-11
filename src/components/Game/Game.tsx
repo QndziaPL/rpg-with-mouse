@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import GameCanvas from "../GameCanvas/GameCanvas";
 import { usePlayerInput } from "../../playerInputs/usePlayerInput";
 import { draw } from "../../draw/draw";
-import grassTile from "../../assets/grassTile.bmp";
+import grassTile from "../../assets/tiles/grassTile.bmp";
 
 import {
   GameStateActionType,
