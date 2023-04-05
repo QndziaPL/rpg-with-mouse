@@ -1,3 +1,6 @@
+# Stupid prototype of rpg / shooter game 
+Preview [https://qndziapl.github.io/rpg-with-mouse/](https://qndziapl.github.io/rpg-with-mouse/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
